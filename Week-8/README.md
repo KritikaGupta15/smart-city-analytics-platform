@@ -1,68 +1,84 @@
-# Week 6 — Project Setup, Research & Architecture
+# Week 8 — UI Layer, Response Generation & Analytics
 
 > **Course:** CPS698 Capstone Project
 > **Team 4:** Kritika Gupta | Rohit Manohar Saggam | Nandini Devi Poreddy
 > **Mentor:** Dr. Razi Iqbal | **Instructor:** Dr. Michael Johnson
 
 ## 📌 Overview
-Week 6 focused on setting up the full project foundation — environment, tools, APIs, and a working proof of concept using an Agentic AI framework powered by DeepSeek-R1:7B.
+Week 8 focused on building the analytics layer, natural language response generation, trend detection, insight generation, and connecting everything into a complete end-to-end pipeline with an interactive CLI interface.
 
 ## ✅ Completed Cards
 
-### Card 1: Backend & Environment Setup — Kritika
-- Created shared GitHub repository for version-controlled collaboration
-- Set up Google Colab environment with GPU (T4) runtime
-- Installed Ollama, zstd, and all required Python libraries
-- Configured isolated environment to avoid dependency conflicts
+### Card 1: Basic UI/CLI for Query Input — Kritika
+- Built interactive CLI interface for natural language city queries
+- Supports weather-only, AQI-only, and combined query types
+- Added input validation to prevent empty or malformed queries
+- Integrated with full pipeline for real-time responses
 
-### Card 2: DeepSeek Model & Agentic Framework Setup — Nandini
-- Downloaded and configured DeepSeek-R1:7B model via Ollama
-- Started Ollama server in background using subprocess
-- Verified model responds correctly to test prompts
-- Built basic agent class structure for tool routing and reasoning
+### Card 2: Display Components — Nandini
+- Created structured weather summary display (temperature, humidity, wind)
+- Built AQI summary with color-coded severity (Green/Yellow/Orange/Red/Purple)
+- Added contextual health recommendations per AQI level
+- Ensured consistent output formatting across all query types
 
-### Card 3: API Access Setup (Open-Meteo & OpenAQ) — Kritika
-- Studied Open-Meteo Geocoding and Weather API endpoints
-- Sent trial requests and verified valid JSON responses
-- Identified key fields: temperature, humidity, wind speed, timestamps
-- Documented API constraints and geographic input formats
+### Card 3: Natural Language Response Generator — Kritika
+- Built generate_full_response() converting raw data to human-friendly reports
+- Added contextual weather insights (heat warnings, wind advisories, rain alerts)
+- Implemented AQI health messaging with group-specific advice
+- Added graceful fallback for missing or partial data
 
-### Card 4: Proof of Concept – Tool Calling — Rohit
-- Built get_temperature() function calling Open-Meteo API in real-time
-- Validated that DeepSeek can generate structured tool calls
-- Tested with 4 different natural language queries
-- Confirmed output matches expected schema (function name + arguments)
+### Card 4: End-to-End Flow Integration — Rohit
+- Connected full pipeline: CLI → Intent Classification → Tool Agents → Analytics → Response
+- Validated correct tool routing for weather, AQI, and combined queries
+- Tested multiple cities and mixed-intent queries
+- Fixed integration bugs and ensured consistent data flow
 
-### Card 5: Research on Agentic AI Patterns — Rohit
-- Explored multi-agent coordination patterns (reasoning + tool agents)
-- Studied best practices for tool routing and multi-step reasoning
-- Documented agentic design principles for team alignment
-- Identified intent-to-tool mapping strategies
+### Card 5: Edge Case Testing — Nandini
+- Tested invalid city names, misspelled cities, and empty strings
+- Validated error handling across all modules
+- Tested trend detection with empty lists and single values
+- All 6 edge case tests passed successfully
 
-### Card 6: System Architecture Diagram — All Members
-- Identified all major modules: reasoning agent, tool agents, backend, APIs, UI
-- Illustrated query flow from user input to final response
-- Produced labeled diagram for project report
+### Card 6: Trend Detection Logic — Kritika
+- Built detect_trend() analyzing hourly temperature, humidity, and PM2.5
+- Detects rising, falling, and stable trends from live API data
+- Returns average, min, max, and data point count per metric
+- Validated with unit tests covering all trend directions
 
-### Card 7: MVP API Prototype — Kritika
-- Created tool schema in structured JSON format for DeepSeek function calling
-- Built full Temperature Agent with agentic reasoning loop
-- Validated mock endpoint response structure
+### Card 7: Daily/Hourly Summary APIs — Rohit
+- Built get_hourly_summary() returning structured 24-hour weather records
+- Computes daily min, max, and average temperature
+- Formats timestamps and aligns data across all modules
+- Tested across multiple cities and time ranges
 
-### Card 8: User Interaction Flow Design — Nandini
-- Identified common user query patterns for weather and AQI
-- Created flowchart showing system query interpretation and tool selection
-- Provided guidelines for consistent user experience
+### Card 8: Insight Generation — Nandini
+- Built generate_weather_insight() with temperature, humidity, and wind advisories
+- Built generate_aqi_insight() with PM2.5-based health recommendations
+- Covers extreme heat, freezing temps, high humidity, storm warnings
+- Provides group-specific advice for children, elderly, and sensitive groups
 
-### Card 9: Weekly Team Sync & Documentation — All Members
-- Held team sync to align on progress and next steps
-- Documented meeting notes and decisions
-- Reviewed proof of concept results and planned Week 7 tasks
+### Card 9: Analytics Integration — Rohit
+- Connected trend detection, summaries, and insights to main pipeline
+- Reasoning agent now incorporates analytics into final responses
+- Validated consistency between raw data, trends, and generated insights
+
+### Card 10: Analytics Testing — Kritika
+- Ran full analytics test suite across New York, Tokyo, and Sydney
+- Validated AQI category boundary logic with 7 PM2.5 threshold tests
+- Confirmed trend detection accuracy with 4 unit test cases
+- All tests passed and results documented in notebook
 
 ## 📁 Files
 | File | Description |
 |------|-------------|
-| `temp_agent.ipynb` | Full Temperature Agent — Proof of Concept |
+| `week8_analytics.ipynb` | All 10 modules + end-to-end pipeline + interactive CLI |
 
-## 🤖 Agent Flow
-User Query → DeepSeek-R1:7B (Reasoning) → Tool Call → Open-Meteo API → Structured Weather Report
+## 🔄 Full Pipeline
+User Query → Intent Classification → City Extraction → Tool Agents → Analytics Layer → Natural Language Response
+
+## 🧪 Test Results
+- Trend Detection Unit Tests: 4 — All Pass
+- AQI Category Boundary Tests: 7 — All Pass
+- Edge Case Tests: 6 — All Pass
+- Multi-City Analytics: 3 cities — All Pass
+- End-to-End Pipeline: 3 queries — All Pass→ Tool Call → Open-Meteo API → Structured Weather Report
