@@ -135,7 +135,7 @@ Structured Weather Report
 - [OpenAQ API Docs](https://docs.openaq.org)
 - [Ollama](https://ollama.com)
 - [DeepSeek Model](https://ollama.com/library/deepseek-r1)
-- [[Project Trello Board](https://trello.com/b/gq3GgqV9/team-4-real-time-urban-data-integration-and-analytics-platform-for-smart-city-applications) 
+- [Project Trello Board](https://trello.com/b/gq3GgqV9/team-4-real-time-urban-data-integration-and-analytics-platform-for-smart-city-applications) 
 ---
 
 ## 📝 License
